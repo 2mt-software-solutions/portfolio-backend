@@ -8,6 +8,9 @@ services:
       - .:/var/www/html
     depends_on:
       - mysql
+    environment:
+      XDEBUG_SESSION: "PHPSTORM"
+      PHP_IDE_CONFIG: "serverName=web"
   web:
     container_name: portfolio-api-web
     image: nginx:latest
