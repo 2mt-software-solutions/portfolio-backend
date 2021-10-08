@@ -33,7 +33,8 @@ RUN apk --no-cache add --virtual .build-deps \
     apk del .build-deps && \
     rm -r /tmp/pear/* && \
     echo -e " \
-        xdebug.start_with_request=trigger\n\
+        xdebug.start_with_request=yes\n\
+        xdebug.discover_client_host=true\n\
         xdebug.mode=debug\n\
         xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
@@ -45,4 +46,4 @@ CMD ["php-fpm", "-F"]
 USER www-data
 WORKDIR /var/www/html
 
-EXPOSE 9003
+EXPOSE 9000
