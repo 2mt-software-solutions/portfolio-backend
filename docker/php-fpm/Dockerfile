@@ -22,7 +22,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN wget https://getcomposer.org/installer -O - -q| php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
-# xdebug with VSCODE
+# xdebug
 ENV XDEBUG_VERSION=3.1.0
 RUN apk --no-cache add --virtual .build-deps \
         g++ \
@@ -31,12 +31,17 @@ RUN apk --no-cache add --virtual .build-deps \
     pecl install xdebug-${XDEBUG_VERSION} && \
     docker-php-ext-enable xdebug && \
     apk del .build-deps && \
-    rm -r /tmp/pear/* && \
-    echo -e " \
-        xdebug.start_with_request=yes\n\
+    rm -r /tmp/pear/*
+
+RUN echo -e "xdebug.start_with_request=trigger\n\
         xdebug.discover_client_host=true\n\
+        log=/tmp/xdebug.log\n\
+        xdebug.log_level=0\n\
         xdebug.mode=debug\n\
         xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN echo -e "memory_limit=1G\n\
+    error_reporting=E_ALL & ~E_NOTICE" >> /usr/local/etc/php/conf.d/docker-php-extras.ini;
 
 RUN usermod -u 1000 www-data \
     && groupmod -g 1000 www-data
