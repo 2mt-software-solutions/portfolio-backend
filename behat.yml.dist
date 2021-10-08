@@ -1,9 +1,71 @@
 default:
-    suites:
-        default:
-            contexts:
-                - App\Tests\Behat\DemoContext
+  formatters:
+    pretty: true
+    junit:
+      output_path: "test-results/"
+  suites:
+    demo:
+      paths: [ "%paths.base%/features/demo" ]
+      contexts:
+        - App\Tests\Behat\DemoContext
 
-    extensions:
-        FriendsOfBehat\SymfonyExtension: null
-            bootstrap: tests/bootstrap.php
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+
+coverage:
+  formatters:
+    pretty: true
+    junit:
+      output_path: "test-results/"
+  suites:
+    demo:
+      paths: [ "%paths.base%/features/demo" ]
+      contexts:
+        - App\Tests\Behat\DemoContext
+
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+    DVDoug\Behat\CodeCoverage\Extension:
+      filter:
+        include:
+          directories:
+            'src': ~
+        exclude:
+          files:
+            - 'src/Kernel.php'
+      reports:
+        clover:
+          target: 'test-results/coverage/xml/behat.xml'
+        html:
+          target: 'test-results/coverage/html/behat'
+          lowUpperBound: 25
+          highLowerBound: 75
+
+ci:
+  formatters:
+    pretty: false
+    progress: true
+    junit:
+      output_path: "test-results/"
+  suites:
+    demo:
+      paths: [ "%paths.base%/features/demo" ]
+      contexts:
+        - App\Tests\Behat\DemoContext
+
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+    DVDoug\Behat\CodeCoverage\Extension:
+      filter:
+        include:
+          directories:
+            'src': ~
+        exclude:
+          files:
+            - 'src/Kernel.php'
+      reports:
+        clover:
+          target: 'test-results/coverage/xml/behat.xml'
