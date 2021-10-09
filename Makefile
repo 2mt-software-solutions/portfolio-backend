@@ -40,7 +40,7 @@ test:
 
 # Run testsuite with coverage reporting enabled
 coverage:
-	@docker-compose exec -e XDEBUG_MODE=coverage php php ./vendor/bin/phpunit --coverage-clover ./test-results/coverage/xml/phpunit.xml --log-junit est-results/phpunit.xml
+	@docker-compose exec -e XDEBUG_MODE=coverage php php ./vendor/bin/phpunit --coverage-clover ./test-results/coverage/xml/phpunit.xml --log-junit test-results/phpunit.xml
 	@sed -i "s%/var/www/html/%`pwd`/%" test-results/coverage/xml/phpunit.xml
 	@docker-compose exec -e XDEBUG_MODE=coverage php vendor/bin/behat --format=junit --out=test-results --format=pretty --out=std -p coverage
 	@sed -i "s%/var/www/html/%`pwd`/%" test-results/coverage/xml/behat.xml

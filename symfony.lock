@@ -11,9 +11,6 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
-    "behatch/contexts": {
-        "version": "3.3.0"
-    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
@@ -79,9 +76,6 @@
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
-    },
-    "justinrainbow/json-schema": {
-        "version": "5.2.11"
     },
     "laminas/laminas-code": {
         "version": "4.4.3"
@@ -343,12 +337,6 @@
     },
     "symfony/process": {
         "version": "v5.3.7"
-    },
-    "symfony/property-access": {
-        "version": "v5.3.8"
-    },
-    "symfony/property-info": {
-        "version": "v5.3.8"
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.3.4"

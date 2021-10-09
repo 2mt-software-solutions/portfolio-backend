@@ -15,7 +15,7 @@
     "symfony/yaml": "5.3.*"
   },
   "require-dev": {
-    "behatch/contexts": "^3.3",
+    "behat/behat": "^3.8",
     "dvdoug/behat-code-coverage": "^5.2",
     "friends-of-behat/mink-browserkit-driver": "^1.5",
     "friends-of-behat/mink-extension": "^2.5",
