@@ -2,11 +2,25 @@
 install:
 	@docker-compose exec php composer install --optimize-autoloader
 	@docker-compose exec php composer dump-autoload
-	@$(MAKE) cache
+	@$(MAKE) cc
 
 # enter bash within the php container
 enter:
 	@docker-compose exec php bash
+
+migrations: ## Create migrations
+	@docker-compose exec php bin/console doctrine:migrations:diff
+
+migrate: ## Run migrations
+	@docker-compose exec php bin/console doctrine:migrations:migrate -n
+
+fixtures: ## Load sample Data
+	@docker-compose exec  php bin/console doctrine:fixtures:load -n
+
+update: ## Update
+	@docker-compose exec php composer update --optimize-autoloader
+	@docker-compose exec php composer dump-autoload
+	@$(MAKE) cc
 
 # start all containers
 start:
@@ -20,6 +34,7 @@ stop: ## Stop Containers
 recreate:
 	@just stop
 	@docker-compose rm -f
+	@rm -f var/test.db && touch var/test.db
 	@docker-compose build
 	@just start
 
